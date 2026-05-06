@@ -10,6 +10,7 @@ type GameActions = {
   wrongAnswer: () => void;
   pass: () => void;
   setQuestion: (question: Question | null) => void;
+  tick: (lastTickAt: number) => number; // retourne le timestamp du tick pour le prochain appel
 };
 
 export type GameStore = GameState & GameActions;
@@ -64,4 +65,34 @@ export const useGameStore = create<GameStore>((set, get) => ({
   },
 
   setQuestion: (question) => set({ currentQuestion: question }),
+
+  tick: (lastTickAt) => {
+    const now = Date.now();
+    const delta = now - lastTickAt;
+    const { status, activeTurn, players } = get();
+
+    // Idempotence : on ne fait rien si la partie n'est pas en cours
+    if (status !== 'playing') return now;
+
+    const activeIndex = activeTurn === 'player1' ? 0 : 1;
+    const activePlayer = players[activeIndex];
+
+    // Déjà épuisé (protection contre double déclenchement)
+    if (activePlayer.timeLeft <= 0) return now;
+
+    const newTimeLeft = Math.max(0, activePlayer.timeLeft - delta);
+    const updatedPlayers: [typeof players[0], typeof players[1]] = [
+      ...players,
+    ] as [typeof players[0], typeof players[1]];
+    updatedPlayers[activeIndex] = { ...activePlayer, timeLeft: newTimeLeft };
+
+    if (newTimeLeft <= 0) {
+      const winner: PlayerId = activeTurn === 'player1' ? 'player2' : 'player1';
+      set({ players: updatedPlayers, status: 'finished', winner });
+    } else {
+      set({ players: updatedPlayers });
+    }
+
+    return now;
+  },
 }));
