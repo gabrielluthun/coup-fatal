@@ -19,7 +19,7 @@ export function PlayerTimer({ name, timeLeft, isActive, timerRunning }: PlayerTi
 
   return (
     <div className={[
-      'relative flex flex-col items-center justify-between flex-1 h-full py-10 px-8 transition-all duration-500',
+      'relative flex flex-col items-center justify-center flex-1 h-full gap-8 py-10 px-8 transition-all duration-500',
       isActive ? 'opacity-100' : 'opacity-30',
     ].join(' ')}>
 
@@ -58,9 +58,6 @@ export function PlayerTimer({ name, timeLeft, isActive, timerRunning }: PlayerTi
           {isRunning ? '● En cours' : isActive ? '◌ En attente' : '—'}
         </span>
       </div>
-
-      {/* Spacer bas */}
-      <div />
     </div>
   );
 }

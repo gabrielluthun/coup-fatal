@@ -13,7 +13,7 @@ export function GameBoard() {
   const [player1, player2] = players;
 
   return (
-    <div className="flex flex-col min-h-screen w-full select-none">
+    <div className="flex flex-col h-screen w-full select-none">
 
       {/* En-tête */}
       <header className="flex items-center justify-center pt-6 pb-2 gap-3">
@@ -30,7 +30,7 @@ export function GameBoard() {
       </header>
 
       {/* Split-screen timers */}
-      <div className="flex flex-1">
+      <div className="flex flex-1 min-h-0">
         <PlayerTimer
           name={player1.name}
           timeLeft={player1.timeLeft}
