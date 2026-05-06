@@ -1,73 +1,54 @@
-# React + TypeScript + Vite
+# Coup Fatal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Simulation du **Coup Fatal**, l'épreuve de demi-finale du jeu télévisé *Les 12 coups de midi*.
 
-Currently, two official plugins are available:
+![Hero](src/assets/hero.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Déroulement
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 1. Écran de configuration
 
-## Expanding the ESLint configuration
+Avant le duel, l'hôte saisit le nom des deux joueurs et choisit la durée initiale de chaque chronomètre (30, 60 ou 90 secondes).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+![Menu](src/assets/menu.png)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 2. Le duel
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+L'hôte pose les questions à voix haute. Il contrôle le déroulement via les boutons :
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Lancer le chrono** — démarre le chrono du joueur actif une fois la question posée
+- **Bonne réponse** — met le chrono en pause et passe la main à l'adversaire
+- **Mauvaise réponse** — le chrono continue, l'hôte enchaîne avec une nouvelle question
+- **Changer de joueur** — correction manuelle en cas d'erreur de l'hôte
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Les deux chronos sont affichés en temps réel au format `SS:CC` (secondes:centisecondes). Le joueur actif est mis en valeur, l'autre est estompé.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+![En jeu](src/assets/in-game.png)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 3. Écran vainqueur
+
+Dès qu'un chrono atteint zéro, le duel s'arrête et le vainqueur est annoncé. L'hôte peut alors relancer un duel avec les mêmes joueurs ou revenir au menu.
+
+![Vainqueur](src/assets/winner.png)
+
+---
+
+## Règles
+
+- Le chrono ne tourne que pour le joueur actif
+- Il s'arrête uniquement sur une bonne réponse
+- Une mauvaise réponse ou un passe laisse le chrono tourner
+- Le premier joueur dont le chrono atteint zéro est éliminé
+
+---
+
+## Stack technique
+
+- **React 18** + **TypeScript**
+- **Vite**
+- **Zustand** — gestion d'état global
+- **Tailwind CSS v4**
+
+## Jouer au jeu 
