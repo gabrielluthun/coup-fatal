@@ -7,23 +7,22 @@ export function AnswerControls() {
   const switchPlayer  = useGameStore((s) => s.switchPlayer);
   const correctAnswer = useGameStore((s) => s.correctAnswer);
   const wrongAnswer   = useGameStore((s) => s.wrongAnswer);
-  const pass          = useGameStore((s) => s.pass);
 
   if (!timerRunning) {
     return (
       <div className="flex flex-col items-center gap-3">
-        <div className="flex gap-3">
+        <div className="flex gap-6">
           <Button
             variant="primary"
             onClick={startTimer}
-            className="px-10 py-4 text-base shadow-[0_0_30px_rgba(250,204,21,0.25)]"
+            className="px-14 py-5 text-lg shadow-[0_0_30px_rgba(250,204,21,0.25)]"
           >
             ▶ Lancer le chrono
           </Button>
           <Button
             variant="neutral"
             onClick={switchPlayer}
-            className="px-6 py-4 text-base"
+            className="px-10 py-5 text-lg"
           >
             ⇄ Changer de joueur
           </Button>
@@ -36,15 +35,12 @@ export function AnswerControls() {
   }
 
   return (
-    <div className="flex gap-4 justify-center">
-      <Button variant="success" onClick={correctAnswer} className="px-8 py-4 text-sm">
+    <div className="flex gap-6 justify-center">
+      <Button variant="success" onClick={correctAnswer} className="px-20 py-5 text-lg">
         ✓ Bonne réponse
       </Button>
-      <Button variant="danger" onClick={wrongAnswer} className="px-8 py-4 text-sm">
+      <Button variant="danger" onClick={wrongAnswer} className="px-20 py-5 text-lg">
         ✗ Mauvaise réponse
-      </Button>
-      <Button variant="neutral" onClick={pass} className="px-8 py-4 text-sm">
-        → Je passe
       </Button>
     </div>
   );
