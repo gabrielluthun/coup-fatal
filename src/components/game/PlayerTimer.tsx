@@ -18,26 +18,30 @@ export function PlayerTimer({ name, timeLeft, isActive, timerRunning }: PlayerTi
 
   return (
     <div className={[
-      'relative flex flex-col items-center justify-center flex-1 h-full gap-8 py-10 px-8 transition-all duration-500',
+      'relative flex flex-col items-center justify-center flex-1 h-full',
+      'gap-4 sm:gap-6 lg:gap-8',
+      'py-4 px-3 sm:py-6 sm:px-6 lg:py-10 lg:px-8',
+      'transition-all duration-500',
       isActive ? 'opacity-100' : 'opacity-30',
     ].join(' ')}>
 
       {/* Nom du joueur */}
-      <span className="text-sm font-bold tracking-[0.25em] uppercase text-zinc-400">
+      <span className="text-xs sm:text-sm font-bold tracking-[0.25em] uppercase text-zinc-400">
         {name}
       </span>
 
       {/* Chrono principal */}
-      <div className="flex flex-col items-center gap-4">
+      <div className="flex flex-col items-center gap-3 sm:gap-4">
         {/* Boîte du chrono — style TV */}
         <div className={[
-          'px-8 py-5 rounded-2xl transition-all duration-300',
+          'px-3 py-2 sm:px-5 sm:py-3 lg:px-8 lg:py-5 rounded-2xl transition-all duration-300',
           isActive
             ? 'bg-zinc-800 ring-2 ring-yellow-400 shadow-[0_0_60px_rgba(250,204,21,0.2)]'
             : 'bg-zinc-900 ring-1 ring-zinc-800',
         ].join(' ')}>
           <span className={[
-            'text-[7rem] font-black font-mono tabular-nums leading-none block transition-colors duration-300',
+            'text-[2.5rem] sm:text-[4rem] lg:text-[7rem]',
+            'font-black font-mono tabular-nums leading-none block transition-colors duration-300',
             isEmpty   ? 'text-zinc-700'
             : isLow   ? 'animate-tick-flash'
             : isActive ? 'text-white'
@@ -49,7 +53,7 @@ export function PlayerTimer({ name, timeLeft, isActive, timerRunning }: PlayerTi
 
         {/* Indicateur d'état sous le chrono */}
         <span className={[
-          'text-[10px] font-black tracking-[0.3em] uppercase transition-all duration-300',
+          'text-[8px] sm:text-[10px] font-black tracking-[0.3em] uppercase transition-all duration-300',
           isRunning       ? 'text-yellow-400'
           : isActive      ? 'text-zinc-500'
                           : 'text-transparent',
