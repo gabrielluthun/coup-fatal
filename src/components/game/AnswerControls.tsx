@@ -11,18 +11,18 @@ export function AnswerControls() {
   if (!timerRunning) {
     return (
       <div className="flex flex-col items-center gap-3">
-        <div className="flex gap-6">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
           <Button
             variant="primary"
             onClick={startTimer}
-            className="px-10 py-4 text-lg shadow-[0_0_30px_rgba(250,204,21,0.25)]"
+            className="px-8 py-3 sm:px-10 sm:py-4 text-base sm:text-lg shadow-[0_0_30px_rgba(250,204,21,0.25)]"
           >
             ▶ Lancer le chrono
           </Button>
           <Button
             variant="neutral"
             onClick={switchPlayer}
-            className="px-8 py-4 text-lg"
+            className="px-6 py-3 sm:px-8 sm:py-4 text-base sm:text-lg"
           >
             ⇄ Changer de joueur
           </Button>
@@ -35,11 +35,11 @@ export function AnswerControls() {
   }
 
   return (
-    <div className="flex gap-6 justify-center">
-      <Button variant="success" onClick={correctAnswer} className="px-12 py-4 text-lg">
+    <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center">
+      <Button variant="success" onClick={correctAnswer} className="px-8 py-3 sm:px-12 sm:py-4 text-base sm:text-lg">
         ✓ Bonne réponse
       </Button>
-      <Button variant="danger" onClick={wrongAnswer} className="px-12 py-4 text-lg">
+      <Button variant="danger" onClick={wrongAnswer} className="px-8 py-3 sm:px-12 sm:py-4 text-base sm:text-lg">
         ✗ Mauvaise réponse
       </Button>
     </div>
