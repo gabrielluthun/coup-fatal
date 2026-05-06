@@ -7,6 +7,7 @@ type GameActions = {
   startGame: (player1Name: string, player2Name: string, initialTimeMs: number) => void;
   endGame: (loser: PlayerId) => void;
   startTimer: () => void;
+  switchPlayer: () => void;
   correctAnswer: () => void;
   wrongAnswer: () => void;
   pass: () => void;
@@ -52,6 +53,13 @@ export const useGameStore = create<GameStore>((set, get) => ({
   // L'hôte appuie sur "Lancer le chrono" une fois la question posée
   startTimer: () => {
     set({ timerRunning: true });
+  },
+
+  // Correction manuelle : change de joueur sans modifier les chronomètres
+  switchPlayer: () => {
+    const { activeTurn } = get();
+    const next: PlayerId = activeTurn === 'player1' ? 'player2' : 'player1';
+    set({ activeTurn: next, timerRunning: false });
   },
 
   // Bonne réponse : chrono en pause, passage à l'adversaire
