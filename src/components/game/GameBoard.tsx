@@ -70,7 +70,7 @@ export function GameBoard() {
       </div>
 
       {/* Contrôles hôte */}
-      <footer className="flex items-center justify-center py-8 border-t border-zinc-800/60">
+      <footer className="flex items-center justify-center min-h-22 border-t border-zinc-800/60">
         <AnswerControls />
       </footer>
     </div>
