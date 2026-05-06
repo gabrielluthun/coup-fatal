@@ -7,9 +7,9 @@ export default function App() {
   const status = useGameStore((s) => s.status);
 
   return (
-    <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-6">
-      {status === 'setup' && <GameSetup />}
-      {status === 'playing' && <GameBoard />}
+    <div className="min-h-screen bg-zinc-950 text-white">
+      {status === 'setup'    && <GameSetup />}
+      {status === 'playing'  && <GameBoard />}
       {status === 'finished' && <GameResult />}
     </div>
   );
