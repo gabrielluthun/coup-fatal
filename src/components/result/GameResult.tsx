@@ -3,13 +3,13 @@ import { Button } from '../ui/Button';
 
 function WinnerAnnouncement({ name }: { name: string }) {
   return (
-    <div className="flex flex-col items-center gap-4 animate-scale-in">
-      <div className="text-6xl select-none">🏆</div>
-      <div className="flex flex-col items-center gap-2">
-        <p className="text-zinc-500 text-xs font-bold uppercase tracking-[0.25em]">
-          Vainqueur
+    <div className="flex flex-col items-center gap-6 animate-scale-in">
+      <div className="text-7xl select-none">🏆</div>
+      <div className="flex flex-col items-center gap-3">
+        <p className="text-zinc-600 text-[10px] font-bold tracking-[0.3em] uppercase">
+          Vainqueur du Coup Fatal
         </p>
-        <p className="text-5xl font-black text-yellow-400 text-center tracking-tight">
+        <p className="text-6xl font-black text-yellow-400 text-center tracking-tight leading-none">
           {name}
         </p>
       </div>
@@ -19,8 +19,8 @@ function WinnerAnnouncement({ name }: { name: string }) {
 
 function ReplayButton({ onClick }: { onClick: () => void }) {
   return (
-    <div className="animate-fade-up" style={{ animationDelay: '0.3s' }}>
-      <Button variant="primary" onClick={onClick} className="px-10 py-3 text-base">
+    <div className="animate-fade-up" style={{ animationDelay: '0.35s' }}>
+      <Button variant="primary" onClick={onClick} className="px-12 py-4 text-base">
         Rejouer
       </Button>
     </div>
@@ -42,7 +42,7 @@ export function GameResult() {
   if (!winnerPlayer) return null;
 
   return (
-    <div className="flex flex-col items-center gap-12 w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-2xl p-12 shadow-2xl">
+    <div className="flex flex-col items-center justify-center min-h-screen gap-16">
       <WinnerAnnouncement name={winnerPlayer.name} />
       <ReplayButton onClick={handleReplay} />
     </div>
