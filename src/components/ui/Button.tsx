@@ -7,10 +7,10 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const variantClasses: Record<Variant, string> = {
-  primary: 'bg-blue-600 hover:bg-blue-500 text-white',
-  success: 'bg-green-600 hover:bg-green-500 text-white',
-  danger:  'bg-red-600 hover:bg-red-500 text-white',
-  neutral: 'bg-zinc-600 hover:bg-zinc-500 text-white',
+  primary: 'bg-yellow-400 hover:bg-yellow-300 text-zinc-900',
+  success: 'bg-emerald-500 hover:bg-emerald-400 text-white',
+  danger:  'bg-red-500 hover:bg-red-400 text-white',
+  neutral: 'bg-zinc-700 hover:bg-zinc-600 text-zinc-200',
 };
 
 export function Button({ variant = 'primary', className = '', children, ...props }: ButtonProps) {
@@ -18,9 +18,9 @@ export function Button({ variant = 'primary', className = '', children, ...props
     <button
       {...props}
       className={[
-        'px-5 py-2.5 rounded-lg font-semibold text-sm tracking-wide',
-        'transition-colors duration-150 cursor-pointer',
-        'disabled:opacity-40 disabled:cursor-not-allowed',
+        'px-6 py-3 rounded-xl font-bold text-sm tracking-wide uppercase',
+        'transition-all duration-150 cursor-pointer',
+        'disabled:opacity-30 disabled:cursor-not-allowed',
         variantClasses[variant],
         className,
       ].join(' ')}
