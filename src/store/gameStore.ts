@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { GameState, PlayerId, Question } from '../types/game';
+import type { GameState, PlayerId } from '../types/game';
 
 const DEFAULT_TIME_MS = 60000;
 
@@ -9,8 +9,7 @@ type GameActions = {
   correctAnswer: () => void;
   wrongAnswer: () => void;
   pass: () => void;
-  setQuestion: (question: Question | null) => void;
-  tick: (lastTickAt: number) => number; // retourne le timestamp du tick pour le prochain appel
+  tick: (lastTickAt: number) => number;
 };
 
 export type GameStore = GameState & GameActions;
@@ -22,7 +21,6 @@ const initialState: GameState = {
   ],
   activeTurn: 'player1',
   status: 'setup',
-  currentQuestion: null,
   winner: null,
   initialTime: DEFAULT_TIME_MS,
 };
@@ -38,7 +36,6 @@ export const useGameStore = create<GameStore>((set, get) => ({
       ],
       activeTurn: 'player1',
       status: 'playing',
-      currentQuestion: null,
       winner: null,
       initialTime: initialTimeMs,
     });
@@ -49,35 +46,26 @@ export const useGameStore = create<GameStore>((set, get) => ({
     set({ status: 'finished', winner });
   },
 
-
   correctAnswer: () => {
     const { activeTurn } = get();
     const next: PlayerId = activeTurn === 'player1' ? 'player2' : 'player1';
-    set({ activeTurn: next, currentQuestion: null });
+    set({ activeTurn: next });
   },
 
-  wrongAnswer: () => {
-    set({ currentQuestion: null });
-  },
+  wrongAnswer: () => {},
 
-  pass: () => {
-    set({ currentQuestion: null });
-  },
-
-  setQuestion: (question) => set({ currentQuestion: question }),
+  pass: () => {},
 
   tick: (lastTickAt) => {
     const now = Date.now();
     const delta = now - lastTickAt;
     const { status, activeTurn, players } = get();
 
-    // Idempotence : on ne fait rien si la partie n'est pas en cours
     if (status !== 'playing') return now;
 
     const activeIndex = activeTurn === 'player1' ? 0 : 1;
     const activePlayer = players[activeIndex];
 
-    // Déjà épuisé (protection contre double déclenchement)
     if (activePlayer.timeLeft <= 0) return now;
 
     const newTimeLeft = Math.max(0, activePlayer.timeLeft - delta);
