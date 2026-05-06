@@ -26,7 +26,7 @@ function PlayerNameInput({ label, value, onChange }: PlayerNameInputProps) {
         onChange={(e) => onChange(e.target.value)}
         placeholder={`Nom du ${label.toLowerCase()}`}
         maxLength={30}
-        className="bg-zinc-900 text-white rounded-xl px-8 py-6 text-xl outline-none focus:ring-2 focus:ring-yellow-400 placeholder:text-zinc-700 transition-all"
+        className="bg-zinc-900 text-white rounded-xl px-5 py-4 sm:px-8 sm:py-5 text-base sm:text-lg outline-none focus:ring-2 focus:ring-yellow-400 placeholder:text-zinc-700 transition-all"
       />
     </div>
   );
@@ -82,20 +82,20 @@ export function GameSetup() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col items-center justify-center min-h-screen w-full px-6 gap-20"
+      className="flex flex-col items-center justify-center min-h-screen w-full px-4 sm:px-6 gap-10 sm:gap-16 lg:gap-20"
     >
       {/* Titre */}
       <div className="flex flex-col items-center gap-3">
-        <h1 className="text-7xl font-black text-white tracking-[0.15em] uppercase">
+        <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-white tracking-[0.15em] uppercase">
           Coup Fatal
         </h1>
-        <p className="text-zinc-600 text-s tracking-[0.55em] uppercase">
+        <p className="text-zinc-600 text-xs sm:text-s tracking-[0.35em] sm:tracking-[0.55em] uppercase">
           Les 12 coups de midi
         </p>
       </div>
 
       {/* Champs */}
-      <div className="flex flex-col gap-7 w-full max-w-xl bg-zinc-950 border-zinc-800/60 rounded-4xl p-8">
+      <div className="flex flex-col gap-5 sm:gap-7 w-full max-w-xl bg-zinc-950 border-zinc-800/60 rounded-3xl sm:rounded-4xl p-6 sm:p-8">
         <PlayerNameInput label="Joueur 1" value={player1Name} onChange={setPlayer1Name} />
         <PlayerNameInput label="Joueur 2" value={player2Name} onChange={setPlayer2Name} />
         <div className="border-zinc-800" />
