@@ -26,14 +26,16 @@
 .animate-pulse-glow { animation: pulse-glow 1.8s ease-in-out infinite; }
 .animate-tick-flash { animation: tick-flash 0.8s ease-in-out infinite; }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-body {
-  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  background-color: #09090b;
+  body {
+    font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background-color: #09090b;
+  }
 }

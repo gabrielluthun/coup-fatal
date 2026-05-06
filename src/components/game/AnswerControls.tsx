@@ -15,14 +15,14 @@ export function AnswerControls() {
           <Button
             variant="primary"
             onClick={startTimer}
-            className="px-14 py-5 text-lg shadow-[0_0_30px_rgba(250,204,21,0.25)]"
+            className="px-10 py-4 text-lg shadow-[0_0_30px_rgba(250,204,21,0.25)]"
           >
             ▶ Lancer le chrono
           </Button>
           <Button
             variant="neutral"
             onClick={switchPlayer}
-            className="px-10 py-5 text-lg"
+            className="px-8 py-4 text-lg"
           >
             ⇄ Changer de joueur
           </Button>
@@ -36,10 +36,10 @@ export function AnswerControls() {
 
   return (
     <div className="flex gap-6 justify-center">
-      <Button variant="success" onClick={correctAnswer} className="px-20 py-5 text-lg">
+      <Button variant="success" onClick={correctAnswer} className="px-12 py-4 text-lg">
         ✓ Bonne réponse
       </Button>
-      <Button variant="danger" onClick={wrongAnswer} className="px-20 py-5 text-lg">
+      <Button variant="danger" onClick={wrongAnswer} className="px-12 py-4 text-lg">
         ✗ Mauvaise réponse
       </Button>
     </div>

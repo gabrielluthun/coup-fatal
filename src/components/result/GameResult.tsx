@@ -25,10 +25,10 @@ type ResultActionsProps = {
 function ResultActions({ onReplay, onMenu }: ResultActionsProps) {
   return (
     <div className="flex gap-6 animate-fade-up" style={{ animationDelay: '0.35s' }}>
-      <Button variant="primary" onClick={onReplay} className="px-20 py-5 text-lg">
+      <Button variant="primary" onClick={onReplay} className="px-12 py-4 text-lg">
         Rejouer
       </Button>
-      <Button variant="neutral" onClick={onMenu} className="px-20 py-5 text-lg">
+      <Button variant="neutral" onClick={onMenu} className="px-12 py-4 text-lg">
         ← Menu
       </Button>
     </div>

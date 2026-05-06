@@ -95,7 +95,7 @@ export function GameSetup() {
       </div>
 
       {/* Champs */}
-      <div className="flex flex-col gap-7 w-full max-w-xl bg-zinc-950 border-zinc-800/60 rounded-4xl p-12">
+      <div className="flex flex-col gap-7 w-full max-w-xl bg-zinc-950 border-zinc-800/60 rounded-4xl p-8">
         <PlayerNameInput label="Joueur 1" value={player1Name} onChange={setPlayer1Name} />
         <PlayerNameInput label="Joueur 2" value={player2Name} onChange={setPlayer2Name} />
         <div className="border-zinc-800" />
@@ -108,7 +108,7 @@ export function GameSetup() {
           type="submit"
           variant="primary"
           disabled={!canStart}
-          className="w-full py-7 text-xl"
+          className="w-full py-3.5 text-lg"
         >
           Lancer le duel
         </Button>

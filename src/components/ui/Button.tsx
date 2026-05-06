@@ -1,5 +1,4 @@
 import type { ButtonHTMLAttributes } from 'react';
-import { twMerge } from 'tailwind-merge';
 
 type Variant = 'primary' | 'success' | 'danger' | 'neutral';
 
@@ -18,13 +17,13 @@ export function Button({ variant = 'primary', className = '', children, ...props
   return (
     <button
       {...props}
-      className={twMerge(
-        'px-6 py-3 rounded-xl font-bold text-sm tracking-wide uppercase',
+      className={[
+        'rounded-xl font-bold tracking-wide uppercase',
         'transition-all duration-150 cursor-pointer',
         'disabled:opacity-30 disabled:cursor-not-allowed',
         variantClasses[variant],
         className,
-      )}
+      ].join(' ')}
     >
       {children}
     </button>
