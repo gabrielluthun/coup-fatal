@@ -9,11 +9,27 @@ export function GameBoard() {
   const players      = useGameStore((s) => s.players);
   const activeTurn   = useGameStore((s) => s.activeTurn);
   const timerRunning = useGameStore((s) => s.timerRunning);
+  const resetGame    = useGameStore((s) => s.resetGame);
 
   const [player1, player2] = players;
 
   return (
-    <div className="flex flex-col h-screen w-full select-none">
+    <div className="relative flex flex-col h-screen w-full select-none">
+
+      {/* Bouton retour — actif uniquement quand le chrono est en pause */}
+      <button
+        onClick={resetGame}
+        disabled={timerRunning}
+        className={[
+          'absolute top-4 left-4 flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-150',
+          timerRunning
+            ? 'text-zinc-800 cursor-not-allowed'
+            : 'text-zinc-500 hover:text-white hover:bg-zinc-800 cursor-pointer',
+        ].join(' ')}
+        aria-label="Retour au menu"
+      >
+        ←
+      </button>
 
       {/* En-tête */}
       <header className="flex items-center justify-center pt-6 pb-2 gap-3">
