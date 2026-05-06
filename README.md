@@ -2,8 +2,6 @@
 
 Simulation du **Coup Fatal**, l'épreuve de demi-finale du jeu télévisé *Les 12 coups de midi*.
 
-![Hero](src/assets/hero.png)
-
 ---
 
 ## Déroulement
@@ -50,5 +48,3 @@ Dès qu'un chrono atteint zéro, le duel s'arrête et le vainqueur est annoncé.
 - **Vite**
 - **Zustand** — gestion d'état global
 - **Tailwind CSS v4**
-
-## Jouer au jeu 
