@@ -13,32 +13,36 @@ function formatTime(ms: number): string {
 
 export function PlayerTimer({ name, timeLeft, isActive }: PlayerTimerProps) {
   const isLow = timeLeft <= 10_000;
+  const isEmpty = timeLeft <= 0;
 
   return (
     <div
       className={[
-        'flex flex-col items-center gap-3 p-6 rounded-2xl transition-all duration-300',
-        isActive
-          ? 'ring-4 ring-yellow-400 bg-zinc-800'
-          : 'ring-1 ring-zinc-700 bg-zinc-900 opacity-60',
+        'relative flex flex-col items-center gap-4 px-10 py-8 rounded-2xl transition-all duration-300 flex-1',
+        isActive && !isEmpty
+          ? 'bg-zinc-800 ring-4 ring-yellow-400 shadow-[0_0_40px_rgba(250,204,21,0.15)]'
+          : 'bg-zinc-900 ring-1 ring-zinc-800',
+        !isActive ? 'opacity-50' : '',
       ].join(' ')}
     >
-      <span className="text-zinc-300 text-lg font-medium tracking-wide uppercase">
+      {isActive && !isEmpty && (
+        <span className="absolute top-3 text-yellow-400 text-[10px] font-bold tracking-[0.2em] uppercase">
+          En jeu
+        </span>
+      )}
+
+      <span className="text-zinc-400 text-sm font-semibold tracking-widest uppercase mt-3">
         {name}
       </span>
+
       <span
         className={[
-          'text-7xl font-mono font-bold tabular-nums transition-colors duration-300',
-          isLow ? 'text-red-500' : 'text-white',
+          'text-8xl font-black font-mono tabular-nums leading-none transition-colors duration-300',
+          isEmpty ? 'text-zinc-700' : isLow ? 'text-red-500' : 'text-white',
         ].join(' ')}
       >
         {formatTime(timeLeft)}
       </span>
-      {isActive && (
-        <span className="text-yellow-400 text-xs font-semibold tracking-widest uppercase">
-          En jeu
-        </span>
-      )}
     </div>
   );
 }

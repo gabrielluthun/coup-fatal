@@ -12,13 +12,25 @@ export function GameBoard() {
   const [player1, player2] = players;
 
   return (
-    <div className="flex flex-col items-center gap-10 w-full">
-      <div className="flex gap-6 w-full justify-center">
+    <div className="flex flex-col items-center gap-12 w-full max-w-4xl">
+      <div className="flex flex-col items-center gap-1">
+        <h1 className="text-2xl font-black text-white tracking-widest uppercase">
+          Coup Fatal
+        </h1>
+        <p className="text-zinc-600 text-xs tracking-widest uppercase">
+          Les 12 coups de midi
+        </p>
+      </div>
+
+      <div className="flex gap-6 w-full">
         <PlayerTimer
           name={player1.name}
           timeLeft={player1.timeLeft}
           isActive={activeTurn === 'player1'}
         />
+        <div className="flex items-center text-zinc-700 font-black text-3xl select-none">
+          VS
+        </div>
         <PlayerTimer
           name={player2.name}
           timeLeft={player2.timeLeft}
