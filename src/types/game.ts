@@ -12,6 +12,7 @@ export type GameState = {
   players: [Player, Player];
   activeTurn: PlayerId;
   status: GameStatus;
+  timerRunning: boolean; // false entre deux bonnes réponses, true pendant la question
   winner: PlayerId | null;
-  initialTime: number; // en millisecondes
+  initialTime: number;
 };
