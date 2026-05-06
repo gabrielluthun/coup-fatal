@@ -6,6 +6,7 @@ const DEFAULT_TIME_MS = 60000;
 type GameActions = {
   startGame: (player1Name: string, player2Name: string, initialTimeMs: number) => void;
   endGame: (loser: PlayerId) => void;
+  resetGame: () => void;
   startTimer: () => void;
   switchPlayer: () => void;
   correctAnswer: () => void;
@@ -49,6 +50,8 @@ export const useGameStore = create<GameStore>((set, get) => ({
     const winner: PlayerId = loser === 'player1' ? 'player2' : 'player1';
     set({ status: 'finished', timerRunning: false, winner });
   },
+
+  resetGame: () => set({ ...initialState }),
 
   // L'hôte appuie sur "Lancer le chrono" une fois la question posée
   startTimer: () => {
