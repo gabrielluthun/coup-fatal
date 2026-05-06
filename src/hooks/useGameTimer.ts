@@ -5,11 +5,12 @@ const TICK_INTERVAL_MS = 100;
 
 export function useGameTimer() {
   const status = useGameStore((s) => s.status);
+  const timerRunning = useGameStore((s) => s.timerRunning);
   const tick = useGameStore((s) => s.tick);
   const lastTickAtRef = useRef<number>(Date.now());
 
   useEffect(() => {
-    if (status !== 'playing') return;
+    if (status !== 'playing' || !timerRunning) return;
 
     lastTickAtRef.current = Date.now();
 
@@ -18,5 +19,5 @@ export function useGameTimer() {
     }, TICK_INTERVAL_MS);
 
     return () => clearInterval(intervalId);
-  }, [status, tick]);
+  }, [status, timerRunning, tick]);
 }
