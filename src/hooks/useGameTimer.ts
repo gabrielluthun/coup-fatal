@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useGameStore } from '../store/gameStore';
 
-const TICK_INTERVAL_MS = 100;
+const TICK_INTERVAL_MS = 10;
 
 export function useGameTimer() {
   const status = useGameStore((s) => s.status);
