@@ -17,20 +17,29 @@ function WinnerAnnouncement({ name }: { name: string }) {
   );
 }
 
-function ReplayButton({ onClick }: { onClick: () => void }) {
+type ResultActionsProps = {
+  onReplay: () => void;
+  onMenu: () => void;
+};
+
+function ResultActions({ onReplay, onMenu }: ResultActionsProps) {
   return (
-    <div className="animate-fade-up" style={{ animationDelay: '0.35s' }}>
-      <Button variant="primary" onClick={onClick} className="px-12 py-4 text-base">
+    <div className="flex gap-3 animate-fade-up" style={{ animationDelay: '0.35s' }}>
+      <Button variant="primary" onClick={onReplay} className="px-10 py-4 text-base">
         Rejouer
+      </Button>
+      <Button variant="neutral" onClick={onMenu} className="px-6 py-4 text-base">
+        ← Menu
       </Button>
     </div>
   );
 }
 
 export function GameResult() {
-  const players = useGameStore((s) => s.players);
-  const winner = useGameStore((s) => s.winner);
-  const startGame = useGameStore((s) => s.startGame);
+  const players     = useGameStore((s) => s.players);
+  const winner      = useGameStore((s) => s.winner);
+  const startGame   = useGameStore((s) => s.startGame);
+  const resetGame   = useGameStore((s) => s.resetGame);
   const initialTime = useGameStore((s) => s.initialTime);
 
   const winnerPlayer = players.find((p) => p.id === winner);
@@ -44,7 +53,7 @@ export function GameResult() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-16">
       <WinnerAnnouncement name={winnerPlayer.name} />
-      <ReplayButton onClick={handleReplay} />
+      <ResultActions onReplay={handleReplay} onMenu={resetGame} />
     </div>
   );
 }
