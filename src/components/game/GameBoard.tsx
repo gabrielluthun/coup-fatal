@@ -46,7 +46,7 @@ export function GameBoard() {
       </header>
 
       {/* Split-screen timers */}
-      <div className="flex flex-1 min-h-0">
+      <div className="flex flex-col sm:flex-row flex-1 min-h-0">
         <PlayerTimer
           name={player1.name}
           timeLeft={player1.timeLeft}
@@ -54,11 +54,11 @@ export function GameBoard() {
           timerRunning={timerRunning}
         />
 
-        {/* Séparateur vertical */}
-        <div className="flex flex-col items-center justify-center gap-2 px-4">
-          <div className="w-px flex-1 bg-zinc-800" />
+        {/* Séparateur — horizontal sur mobile, vertical sur sm+ */}
+        <div className="flex sm:flex-col items-center justify-center gap-2 px-4 sm:px-4 py-2 sm:py-0">
+          <div className="h-px sm:h-auto sm:w-px flex-1 bg-zinc-800" />
           <span className="text-zinc-700 text-xs font-black tracking-widest">VS</span>
-          <div className="w-px flex-1 bg-zinc-800" />
+          <div className="h-px sm:h-auto sm:w-px flex-1 bg-zinc-800" />
         </div>
 
         <PlayerTimer
@@ -70,7 +70,7 @@ export function GameBoard() {
       </div>
 
       {/* Contrôles hôte */}
-      <footer className="flex items-center justify-center min-h-22 border-t border-zinc-800/60">
+      <footer className="flex items-center justify-center min-h-16 sm:min-h-20 lg:min-h-24 border-t border-zinc-800/60">
         <AnswerControls />
       </footer>
     </div>
