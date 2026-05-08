@@ -1,20 +1,29 @@
+import type { AnswerFeedback } from '../../types/game';
+
 type PlayerTimerProps = {
   name: string;
   timeLeft: number;
   isActive: boolean;
   timerRunning: boolean;
+  feedback: AnswerFeedback | null;
 };
 
 function formatTime(ms: number): string {
-  const seconds     = Math.floor(ms / 1000);
+  const seconds      = Math.floor(ms / 1000);
   const centiseconds = Math.floor((ms % 1000) / 10);
   return `${String(seconds).padStart(2, '0')}:${String(centiseconds).padStart(2, '0')}`;
 }
 
-export function PlayerTimer({ name, timeLeft, isActive, timerRunning }: PlayerTimerProps) {
+export function PlayerTimer({ name, timeLeft, isActive, timerRunning, feedback }: PlayerTimerProps) {
   const isLow     = timeLeft > 0 && timeLeft <= 10_000;
   const isEmpty   = timeLeft <= 0;
   const isRunning = isActive && timerRunning;
+
+  const flashClass = feedback
+    ? feedback.kind === 'correct'
+      ? 'animate-flash-success'
+      : 'animate-flash-danger'
+    : '';
 
   return (
     <div className={[
@@ -34,11 +43,19 @@ export function PlayerTimer({ name, timeLeft, isActive, timerRunning }: PlayerTi
       <div className="flex flex-col items-center gap-3 sm:gap-4">
         {/* Boîte du chrono — style TV */}
         <div className={[
-          'px-3 py-2 sm:px-5 sm:py-3 lg:px-8 lg:py-5 rounded-2xl transition-all duration-300',
+          'relative px-3 py-2 sm:px-5 sm:py-3 lg:px-8 lg:py-5 rounded-2xl transition-all duration-300',
           isActive
             ? 'bg-zinc-800 ring-2 ring-yellow-400 shadow-[0_0_60px_rgba(250,204,21,0.2)]'
             : 'bg-zinc-900 ring-1 ring-zinc-800',
         ].join(' ')}>
+          {/* Overlay animé pour le feedback (clignote autour de la boîte). */}
+          {feedback && (
+            <div
+              key={feedback.token}
+              aria-hidden
+              className={`absolute inset-0 rounded-2xl pointer-events-none ${flashClass}`}
+            />
+          )}
           <span className={[
             'text-[2.5rem] sm:text-[4rem] lg:text-[7rem]',
             'font-black font-mono tabular-nums leading-none block transition-colors duration-300',

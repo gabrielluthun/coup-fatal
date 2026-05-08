@@ -9,9 +9,12 @@ export function GameBoard() {
   const players      = useGameStore((s) => s.players);
   const activeTurn   = useGameStore((s) => s.activeTurn);
   const timerRunning = useGameStore((s) => s.timerRunning);
+  const feedback     = useGameStore((s) => s.feedback);
   const resetGame    = useGameStore((s) => s.resetGame);
 
   const [player1, player2] = players;
+  const player1Feedback = feedback?.player === 'player1' ? feedback : null;
+  const player2Feedback = feedback?.player === 'player2' ? feedback : null;
 
   return (
     <div className="relative flex flex-col h-screen w-full select-none">
@@ -52,6 +55,7 @@ export function GameBoard() {
           timeLeft={player1.timeLeft}
           isActive={activeTurn === 'player1'}
           timerRunning={timerRunning}
+          feedback={player1Feedback}
         />
 
         {/* Séparateur — horizontal sur mobile, vertical sur sm+ */}
@@ -66,6 +70,7 @@ export function GameBoard() {
           timeLeft={player2.timeLeft}
           isActive={activeTurn === 'player2'}
           timerRunning={timerRunning}
+          feedback={player2Feedback}
         />
       </div>
 
