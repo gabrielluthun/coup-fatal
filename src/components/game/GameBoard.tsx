@@ -1,10 +1,12 @@
 import { useGameStore } from '../../store/gameStore';
 import { useGameTimer } from '../../hooks/useGameTimer';
+import { useGameShortcuts } from '../../hooks/useGameShortcuts';
 import { PlayerTimer } from './PlayerTimer';
 import { AnswerControls } from './AnswerControls';
 
 export function GameBoard() {
   useGameTimer();
+  useGameShortcuts();
 
   const players      = useGameStore((s) => s.players);
   const activeTurn   = useGameStore((s) => s.activeTurn);
@@ -29,7 +31,8 @@ export function GameBoard() {
             ? 'text-zinc-800 cursor-not-allowed'
             : 'text-zinc-500 hover:text-white hover:bg-zinc-800 cursor-pointer',
         ].join(' ')}
-        aria-label="Retour au menu"
+        aria-label="Retour au menu (Échap)"
+        title="Retour au menu (Échap)"
       >
         ←
       </button>
