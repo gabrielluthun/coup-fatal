@@ -13,18 +13,43 @@ export type DurationField = {
   setCustomSeconds: (value: string) => void;
 };
 
+function normalizeSecondsInput(value: string): string {
+  return value.trim().replace(',', '.');
+}
+
+/** États de saisie incomplets (ex. « 60. » en cours de frappe). */
+function isIncompleteSecondsInput(normalized: string): boolean {
+  if (normalized === '' || normalized === '-' || normalized === '.' || normalized === '-.') {
+    return true;
+  }
+  if (/[.,]$/.test(normalized)) return true;
+  return false;
+}
+
 function parseSeconds(value: string): number | null {
-  const parsed = Number.parseInt(value, 10);
+  const normalized = normalizeSecondsInput(value);
+  if (isIncompleteSecondsInput(normalized)) return null;
+  const parsed = Number.parseFloat(normalized);
   if (!Number.isFinite(parsed)) return null;
   if (parsed < MIN_CUSTOM_SECONDS || parsed > MAX_CUSTOM_SECONDS) return null;
   return parsed;
 }
 
+function msFromSeconds(seconds: number): number {
+  return Math.round(seconds * 1000);
+}
+
+function formatInitialSecondsFromMs(ms: number): string {
+  const seconds = Math.round((ms / 1000) * 100) / 100;
+  if (Number.isInteger(seconds)) return String(seconds);
+  return seconds.toFixed(2).replace(/0+$/, '').replace(/\.$/, '');
+}
+
 export function useDurationField(initialMs = 60_000): DurationField {
   const [durationMs, setDurationMs] = useState(initialMs);
   const [isCustom, setIsCustom] = useState(false);
-  const [customSeconds, setCustomSecondsState] = useState(
-    String(Math.round(initialMs / 1000)),
+  const [customSeconds, setCustomSecondsState] = useState(() =>
+    formatInitialSecondsFromMs(initialMs),
   );
 
   const parsed = parseSeconds(customSeconds);
@@ -38,13 +63,13 @@ export function useDurationField(initialMs = 60_000): DurationField {
 
   function selectCustom() {
     setIsCustom(true);
-    if (parsed !== null) setDurationMs(parsed * 1000);
+    if (parsed !== null) setDurationMs(msFromSeconds(parsed));
   }
 
   function setCustomSeconds(value: string) {
     setCustomSecondsState(value);
     const next = parseSeconds(value);
-    if (next !== null) setDurationMs(next * 1000);
+    if (next !== null) setDurationMs(msFromSeconds(next));
   }
 
   return {

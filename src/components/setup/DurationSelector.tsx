@@ -39,10 +39,10 @@ function CustomDurationInput({ value, onChange }: CustomDurationInputProps) {
         inputMode="numeric"
         min={MIN_CUSTOM_SECONDS}
         max={MAX_CUSTOM_SECONDS}
-        step={1}
+        step={0.01}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder={`Entre ${MIN_CUSTOM_SECONDS} et ${MAX_CUSTOM_SECONDS}`}
+        placeholder={`${MIN_CUSTOM_SECONDS} à ${MAX_CUSTOM_SECONDS} s (ex. 45,25)`}
         className="flex-1 bg-zinc-900 text-white rounded-xl px-5 py-3.5 text-base outline-none focus:ring-2 focus:ring-yellow-400 placeholder:text-zinc-700 transition-all"
       />
       <span className="text-zinc-500 text-sm font-bold tracking-[0.2em] uppercase">
