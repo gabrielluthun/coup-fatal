@@ -11,7 +11,6 @@ type GameActions = {
   switchPlayer: () => void;
   correctAnswer: () => void;
   wrongAnswer: () => void;
-  pass: () => void;
   tick: (lastTickAt: number) => number;
 };
 
@@ -27,7 +26,10 @@ const initialState: GameState = {
   timerRunning: false,
   winner: null,
   initialTime: DEFAULT_TIME_MS,
+  feedback: null,
 };
+
+let feedbackToken = 0;
 
 export const useGameStore = create<GameStore>((set, get) => ({
   ...initialState,
@@ -43,6 +45,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
       timerRunning: false, // l'hôte lance manuellement le chrono
       winner: null,
       initialTime: initialTimeMs,
+      feedback: null,
     });
   },
 
@@ -69,12 +72,22 @@ export const useGameStore = create<GameStore>((set, get) => ({
   correctAnswer: () => {
     const { activeTurn } = get();
     const next: PlayerId = activeTurn === 'player1' ? 'player2' : 'player1';
-    set({ activeTurn: next, timerRunning: false });
+    feedbackToken += 1;
+    set({
+      activeTurn: next,
+      timerRunning: false,
+      feedback: { player: activeTurn, kind: 'correct', token: feedbackToken },
+    });
   },
 
-  // Mauvaise réponse / passe : le chrono continue
-  wrongAnswer: () => {},
-  pass: () => {},
+  // Mauvaise réponse : le chrono continue, on signale juste le feedback
+  wrongAnswer: () => {
+    const { activeTurn } = get();
+    feedbackToken += 1;
+    set({
+      feedback: { player: activeTurn, kind: 'wrong', token: feedbackToken },
+    });
+  },
 
   tick: (lastTickAt) => {
     const now = Date.now();
